@@ -399,3 +399,28 @@ body {
   color: #999;
   font-size: 14px;
 }
+/* Floating View Order Button */
+.view-order-btn {
+  position: fixed;
+  bottom: 20px; /* Distance from the bottom */
+  right: 20px;  /* Distance from the right */
+  padding: 15px 30px; /* Button padding */
+  font-size: 16px; /* Font size */
+  background-color: #27ae60; /* Green color */
+  color: white; /* White text */
+  border-radius: 50px; /* Round edges */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for better visibility */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.view-order-btn:hover {
+  background-color: #2ecc71; /* Darker green on hover */
+  transform: translateY(-5px); /* Button lift effect */
+}
+
+.view-order-btn:active {
+  background-color: #16a085; /* Even darker green when clicked */
+  transform: translateY(2px); /* Button press effect */
+}
+
