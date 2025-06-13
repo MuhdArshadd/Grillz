@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Checkout - BSFoodies</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../../view_css/OnlineWebPage/styles.css">
+  <!-- PayPal Button Script -->
+  <script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&components=buttons"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-white py-3">
+    <div class="container">
+      <a class="navbar-brand" href="#">BSFoodies</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="HomePage.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="MenuPage.html">Menu</a></li>
+          <li class="nav-item"><a class="nav-link active" href="#">Checkout</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Pages</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Checkout Section -->
+  <section class="checkout-section py-5">
+    <div class="container">
+      <h2 class="text-center mb-4">Checkout</h2>
+      <div class="row">
+        <!-- Shipping Address Section -->
+        <div class="col-md-6">
+          <h4>Shipping Address</h4>
+          <form id="shippingForm">
+            <div class="mb-3">
+              <label for="firstName" class="form-label">First Name</label>
+              <input type="text" class="form-control" id="firstName" placeholder="First Name" required>
+            </div>
+            <div class="mb-3">
+              <label for="lastName" class="form-label">Last Name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email Address</label>
+              <input type="email" class="form-control" id="email" placeholder="Email" required>
+            </div>
+            <div class="mb-3">
+              <label for="phone" class="form-label">Phone Number</label>
+              <input type="tel" class="form-control" id="phone" placeholder="Phone Number" required>
+            </div>
+            <div class="mb-3">
+              <label for="city" class="form-label">City</label>
+              <input type="text" class="form-control" id="city" placeholder="City" required>
+            </div>
+            <div class="mb-3">
+              <label for="address1" class="form-label">Address 1</label>
+              <input type="text" class="form-control" id="address1" placeholder="Address Line 1" required>
+            </div>
+            <div class="mb-3">
+              <label for="address2" class="form-label">Address 2</label>
+              <input type="text" class="form-control" id="address2" placeholder="Address Line 2 (Optional)">
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="sameAsShipping" checked>
+              <label class="form-check-label" for="sameAsShipping">Same as shipping address</label>
+            </div>
+          </form>
+        </div>
+
+        <!-- Order Summary Section -->
+        <div class="col-md-6">
+          <h4>Order Summary</h4>
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="../../assets/images/grilled-chicken-salad.jpg" class="img-fluid rounded-start" alt="Grilled Chicken Salad">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Grilled Chicken Salad</h5>
+                  <p class="card-text">Fresh greens with perfectly grilled chicken breast.</p>
+                  <p class="text-success fw-bold" data-price="8.99">RM8.99</p>
+                  <p class="card-text">1 x RM8.99</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Repeat for other items -->
+          <div class="card mb-3">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img src="../../assets/images/avocado_toast.jpg" class="img-fluid rounded-start" alt="Avocado Toast">
+              </div>
+              <div class="col-md-8">
+                <div class="card-body">
+                  <h5 class="card-title">Avocado Toast</h5>
+                  <p class="card-text">Whole grain bread topped with smashed avocado and seasoning.</p>
+                  <p class="text-success fw-bold" data-price="5.50">RM5.50</p>
+                  <p class="card-text">1 x RM5.50</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <hr>
+          <h5>Sub-total: <span class="text-success">RM14.49</span></h5>
+          <h5>Shipping Charge: <span class="text-success">Free</span></h5>
+          <h4>Total Amount: <span class="text-success" id="totalAmount">RM14.49</span></h4>
+
+          <!-- Payment Option -->
+          <h4 class="mt-4">Payment Method</h4>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="paypalPayment" value="paypal" checked>
+            <label class="form-check-label" for="paypalPayment">Pay with PayPal</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="paymentMethod" id="creditCardPayment" value="creditCard">
+            <label class="form-check-label" for="creditCardPayment">Pay with Credit/Debit Card</label>
+          </div>
+
+          <!-- PayPal Button -->
+          <div id="paypal-button-container" class="mt-3"></div>
+
+          <!-- Place Order Button -->
+          <button class="btn btn-success mt-4" id="placeOrderButton" onclick="placeOrder()">Place an Order</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // PayPal Button Integration
+    paypal.Buttons({
+      createOrder: function(data, actions) {
+        return actions.order.create({
+          purchase_units: [{
+            amount: {
+              value: document.getElementById('totalAmount').innerText.replace('RM', '')
+            }
+          }]
+        });
+      },
+      onApprove: function(data, actions) {
+        return actions.order.capture().then(function(details) {
+          alert('Transaction completed by ' + details.payer.name.given_name);
+          placeOrder();  // Call placeOrder() function after successful payment
+        });
+      }
+    }).render('#paypal-button-container');  // Render PayPal button in the container
+
+    // JavaScript to handle "Same as shipping" checkbox
+    document.getElementById('sameAsShipping').addEventListener('change', function() {
+      if (this.checked) {
+        document.getElementById('billingForm').reset();
+      }
+    });
+
+    // Function to handle placing the order
+    function placeOrder() {
+      // Get the values from the shipping form
+      const firstName = document.getElementById('firstName').value;
+      const lastName = document.getElementById('lastName').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const address1 = document.getElementById('address1').value;
+      const address2 = document.getElementById('address2').value;
+
+      // Here you can add logic to submit the form data to your backend or handle it accordingly.
+      alert(`Order Placed!\n\nCustomer: ${firstName} ${lastName}\nTotal: RM14.49`);
+    }
+  </script>
+</body>
+</html>
