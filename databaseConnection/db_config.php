@@ -17,9 +17,21 @@ try {
     $pdo = new PDO($dsn, $user, $password, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ]);
-    // No echo here — let the calling script handle any output
+
+    // Log connection success to error log
+    error_log("Database connection successful.");
+
+    // Optional: Debug output if requested via URL param (only for manual test)
+    if (isset($_GET['debug']) && $_GET['debug'] == 1) {
+        header('Content-Type: application/json');
+        echo json_encode([
+            'success' => true,
+            'message' => 'Database connection successful.'
+        ]);
+        exit;
+    }
+
 } catch (PDOException $e) {
-    // This must return JSON so login.js can parse it safely
     header('Content-Type: application/json');
     echo json_encode([
         'success' => false,

@@ -1,0 +1,77 @@
+/* Color palette */
+:root {
+  --brown-dark: #4B352A;
+  --orange-burnt: #CA7842;
+  --green-mint: #B2CD9C;
+  --yellow-light: #F0F2BD;
+  --light-bg: #fdfcf9;
+}
+
+/* Register Section */
+.register-section {
+  background-color: var(--light-bg);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.register-section h2 {
+  font-weight: 800;
+  color: var(--brown-dark);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Form Container */
+.register-section .form-control {
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.register-section .form-control:focus {
+  border-color: var(--orange-burnt);
+  box-shadow: 0 0 5px rgba(202, 120, 66, 0.5);
+}
+
+/* Submit Button */
+.register-section .btn-success {
+  background-color: var(--orange-burnt);
+  border-color: var(--orange-burnt);
+  font-weight: bold;
+  padding: 0.75rem;
+  border-radius: 25px;
+  font-size: 1.1rem;
+  transition: background-color 0.3s ease;
+}
+
+.register-section .btn-success:hover {
+  background-color: var(--brown-dark);
+  border-color: var(--brown-dark);
+  color: var(--yellow-light);
+}
+
+/* Link to login */
+.register-section a.text-success {
+  font-weight: 600;
+  text-decoration: underline;
+  color: var(--orange-burnt);
+}
+
+.register-section a.text-success:hover {
+  color: var(--brown-dark);
+  text-decoration: none;
+}
+
+/* Register Message */
+#registerMessage {
+  font-size: 0.95rem;
+  color: #cc0000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .register-section .col-md-6 {
+    padding: 0 1rem;
+  }
+}

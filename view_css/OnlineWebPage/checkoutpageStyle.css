@@ -1,0 +1,148 @@
+/* === Grillz Color Palette === */
+:root {
+  --brown-dark: #4B352A;
+  --orange-burnt: #CA7842;
+  --green-mint: #B2CD9C;
+  --yellow-light: #F0F2BD;
+  --text-light: #fff8f0;
+  --neutral-bg: #fdfbf8;
+  --border-soft: #e7ddd3;
+}
+
+/* Brand Header */
+.brand-header {
+  background-color: var(--brown-dark);
+  color: var(--yellow-light);
+}
+
+/* === Base Body === */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--neutral-bg);
+  color: var(--brown-dark);
+  margin: 0;
+  padding: 0;
+}
+
+/* === Headers === */
+h2, h3, h4, h5 {
+  color: var(--brown-dark);
+  font-weight: 700;
+}
+h1{
+  color: var(--yellow-light);
+  font-weight: 700;
+}
+
+/* === Checkout Wrapper === */
+.checkout-wrapper {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* === Forms === */
+.form-label {
+  color: var(--brown-dark);
+  font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  border: 1px solid var(--border-soft);
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  width: 100%;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--orange-burnt);
+  box-shadow: 0 0 0 0.1rem rgba(202, 120, 66, 0.3);
+}
+
+/* === Order Summary === */
+.order-item {
+  background-color: var(--yellow-light);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.order-item img {
+  border-radius: 8px;
+  max-height: 90px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.order-item .card-body {
+  padding: 0;
+}
+
+.order-item .card-title {
+  margin-bottom: 0.3rem;
+}
+
+.text-price {
+  color: var(--orange-burnt);
+  font-weight: bold;
+}
+
+/* === Totals === */
+.total-label {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.total-amount {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--orange-burnt);
+}
+
+/* Make order summary a card */
+.summary-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* === Buttons === */
+.btn-custom {
+  background-color: green;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+  background-color: darkgreen;
+  color: white;
+}
+
+/* === PayPal Section === */
+#paypal-button-container {
+  margin-top: 1rem;
+}
+
+/* === Checkbox & Radio === */
+.form-check-label {
+  color: var(--brown-dark);
+  font-weight: 500;
+}
+
+.form-check-input:checked {
+  background-color: var(--orange-burnt);
+  border-color: var(--orange-burnt);
+}

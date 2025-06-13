@@ -1,0 +1,68 @@
+/* Brand Header */
+.brand-header {
+  background-color: #4B352A;
+  color: #F0F2BD;
+}
+
+.brand-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Order Section Styling */
+.order-section h2 {
+  font-weight: bold;
+  color: #4B352A;
+}
+
+.order-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.item-info h5 {
+  margin-bottom: 0.25rem;
+  font-weight: 700;
+  color: #4B352A;
+}
+
+.quantity-actions button {
+  background-color: #CA7842;
+  color: white;
+  border: none;
+  padding: 0.25rem 0.75rem;
+  margin: 0 0.5rem;
+  border-radius: 5px;
+}
+
+.quantity-actions input {
+  width: 50px;
+  text-align: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.btn-remove {
+  margin-left: auto;
+  color: #CA0000;
+  background: none;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Summary Card */
+.summary-card {
+  background-color: #FFF7ED;
+  border-radius: 10px;
+  border: 1px solid #e0c4a7;
+  box-shadow: 0 0 12px rgba(202, 120, 66, 0.2);
+}
+
+.summary-card h5, .summary-card h4 {
+  color: #4B352A;
+}

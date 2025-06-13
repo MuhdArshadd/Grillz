@@ -1,0 +1,93 @@
+/* Color palette */
+:root {
+  --brown-dark: #4B352A;
+  --orange-burnt: #CA7842;
+  --green-mint: #B2CD9C;
+  --yellow-light: #F0F2BD;
+}
+
+/* Background colors */
+.bg-brown {
+  background-color: var(--brown-dark);
+}
+
+.bg-yellow-light {
+  background-color: var(--yellow-light);
+}
+
+/* Text colors */
+.text-brown-dark {
+  color: var(--brown-dark);
+}
+
+.text-orange {
+  color: var(--orange-burnt);
+}
+
+/* Buttons */
+.btn-brown {
+  background-color: var(--brown-dark);
+  color: var(--yellow-light);
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.btn-brown:hover {
+  background-color: var(--orange-burnt);
+  color: var(--brown-dark);
+  box-shadow: 0 0 10px var(--orange-burnt);
+}
+
+/* Price styling */
+.price {
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
+}
+
+/* Hero Section */
+.hero h6 {
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 900;
+}
+
+/* Cards */
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 20px rgba(202, 120, 66, 0.5);
+}
+
+/* Floating view order button */
+.view-order-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: var(--orange-burnt);
+  color: var(--brown-dark);
+  border-radius: 50px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  box-shadow: 0 6px 15px rgba(202, 120, 66, 0.7);
+  transition: background-color 0.3s ease;
+  z-index: 1000;
+  text-decoration: none;
+}
+
+.view-order-btn:hover {
+  background-color: var(--brown-dark);
+  color: var(--yellow-light);
+  box-shadow: 0 6px 20px var(--brown-dark);
+}

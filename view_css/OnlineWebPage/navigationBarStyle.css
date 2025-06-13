@@ -1,0 +1,47 @@
+/* ======== Color Palette ======== */
+:root {
+  --brown-dark: #4B352A;
+  --orange-burnt: #CA7842;
+  --green-mint: #B2CD9C;
+  --yellow-light: #F0F2BD;
+}
+
+/* ======== Navbar Styling ======== */
+.custom-navbar {
+  background-color: var(--brown-dark) !important;
+  border-bottom: 4px solid var(--yellow-light);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.navbar-brand {
+  font-weight: bold;
+  font-size: 1.8rem;
+  color: var(--yellow-light) !important;
+  letter-spacing: 2px;
+}
+
+.navbar-toggler {
+  border-color: var(--yellow-light);
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23F0F2BD' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%280, 0, 0, 0.7%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* Navbar Links */
+.navbar-nav .nav-link {
+  color: var(--yellow-light) !important;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;       /* Added margin to create space */
+  transition: all 0.3s ease-in-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.navbar-nav .nav-link:hover,
+.navbar-nav .nav-link.active {
+  background-color: var(--orange-burnt);
+  color: var(--brown-dark) !important;
+  border-radius: 8px;
+}

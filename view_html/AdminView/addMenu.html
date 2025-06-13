@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Add Menu Item</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+  <h2>Add New Menu Item</h2>
+  <form id="menuForm" enctype="multipart/form-data">
+    <label>
+      Name:<br />
+      <input type="text" name="name" required />
+    </label><br /><br />
+    <label>
+      Description:<br />
+      <textarea name="description" required></textarea>
+    </label><br /><br />
+    <label>
+      Category:<br />
+      <input type="text" name="category" required />
+    </label><br /><br />
+    <label>
+      Price (e.g., 12.99):<br />
+      <input type="number" step="0.01" name="price" required />
+    </label><br /><br />
+    <label>
+      Status:<br />
+      <select name="status" required>
+        <option value="available">Available</option>
+        <option value="out_of_stock">Out of Stock</option>
+      </select>
+    </label><br /><br />
+    <label>
+      Food Picture:<br />
+      <input type="file" name="foodpicture" accept="image/*" required />
+    </label><br /><br />
+    <button type="submit">Add Menu Item</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    document.getElementById('menuForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+      const formData = new FormData(form);
+
+      // Add action parameter
+      formData.append('action', 'addMenu');
+
+      try {
+        const response = await fetch('../../controller_php/menuController.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          document.getElementById('result').textContent = 'Menu item added successfully.';
+          form.reset();
+        } else {
+          document.getElementById('result').textContent = 'Error: ' + result.message;
+        }
+      } catch (error) {
+        document.getElementById('result').textContent = 'Error: ' + error.message;
+      }
+    });
+  </script>
+</body>
+</html>

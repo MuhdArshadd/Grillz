@@ -2,78 +2,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>View Order - BSFoodies</title>
+  <title>Grillz™ - View Order</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../../view_css/OnlineWebPage/styles.css">
+  <link rel="stylesheet" href="../../view_css/OnlineWebPage/viewOrderPageStyle.css">
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-white py-3">
-    <div class="container">
-      <a class="navbar-brand" href="#">BSFoodies</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item"><a class="nav-link" href="HomePage.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link active" href="MenuPage.html">Menu</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Pages</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>
-          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
 
-  <!-- View Order Section -->
-  <section class="view-order-section py-5">
+  <!-- Grillz Brand Header -->
+  <header class="brand-header text-center py-4">
+    <h1 class="brand-title">Grillz™</h1>
+  </header>
+
+  <!-- Order Section -->
+  <section class="order-section py-5">
     <div class="container">
-      <h2 class="text-center mb-4">Your Order</h2>
+      <h2 class="text-center mb-4">Your Order Summary</h2>
       <div class="row">
-        <!-- Order Items Section -->
-        <div class="col-md-8" id="orderItems">
-          <!-- Product Items -->
-          <div class="card mb-3" id="item1">
-            <div class="row g-0">
+        <!-- Order Items -->
+        <div class="col-lg-8" id="orderItems">
+          <!-- Item Card -->
+          <div class="order-card mb-4" id="item1">
+            <div class="row g-0 align-items-center">
               <div class="col-md-4">
-                <img src="../../assets/images/grilled-chicken-salad.jpg" class="img-fluid rounded-start" alt="Grilled Chicken Salad">
+                <img src="../../assets/images/cheese_lover_burger.png" alt="Grilled Chicken Salad" class="img-fluid rounded">
               </div>
               <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">Grilled Chicken Salad</h5>
-                  <p class="card-text">Fresh greens with perfectly grilled chicken breast.</p>
+                <div class="item-info p-3">
+                  <h5>Cheese Lover Burger</h5>
+                  <p>Double beef patty loaded with cheddar and mozzarella cheese.</p>
                   <p class="text-success fw-bold" data-price="8.99">RM8.99</p>
-                  <div class="d-flex justify-content-between">
-                    <button class="btn btn-sm btn-outline-secondary" onclick="updateQuantity(1, -1)">-</button>
-                    <input type="number" class="form-control w-25 text-center" value="1" min="1" id="quantity1" data-item-id="1">
-                    <button class="btn btn-sm btn-outline-secondary" onclick="updateQuantity(1, 1)">+</button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="removeItem(1)">Remove</button>
+                  <div class="quantity-actions d-flex align-items-center">
+                    <button onclick="updateQuantity(1, -1)">-</button>
+                    <input type="number" value="1" min="1" id="quantity1" data-item-id="1">
+                    <button onclick="updateQuantity(1, 1)">+</button>
+                    <button class="btn-remove" onclick="removeItem(1)">Remove</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Another Product Item -->
-          <div class="card mb-3" id="item2">
-            <div class="row g-0">
+          <div class="order-card mb-4" id="item2">
+            <div class="row g-0 align-items-center">
               <div class="col-md-4">
-                <img src="../../assets/images/avocado_toast.jpg" class="img-fluid rounded-start" alt="Avocado Toast">
+                <img src="../../assets/images/chicken_deluxe_burger.png" alt="Avocado Toast" class="img-fluid rounded">
               </div>
               <div class="col-md-8">
-                <div class="card-body">
-                  <h5 class="card-title">Avocado Toast</h5>
-                  <p class="card-text">Whole grain bread topped with smashed avocado and seasoning.</p>
+                <div class="item-info p-3">
+                  <h5>Chicken Deluxe Burger</h5>
+                  <p>Crispy fried chicken fillet with cheese and mayo.</p>
                   <p class="text-success fw-bold" data-price="5.50">RM5.50</p>
-                  <div class="d-flex justify-content-between">
-                    <button class="btn btn-sm btn-outline-secondary" onclick="updateQuantity(2, -1)">-</button>
-                    <input type="number" class="form-control w-25 text-center" value="1" min="1" id="quantity2" data-item-id="2">
-                    <button class="btn btn-sm btn-outline-secondary" onclick="updateQuantity(2, 1)">+</button>
-                    <button class="btn btn-sm btn-outline-danger" onclick="removeItem(2)">Remove</button>
+                  <div class="quantity-actions d-flex align-items-center">
+                    <button onclick="updateQuantity(2, -1)">-</button>
+                    <input type="number" value="1" min="1" id="quantity2" data-item-id="2">
+                    <button onclick="updateQuantity(2, 1)">+</button>
+                    <button class="btn-remove" onclick="removeItem(2)">Remove</button>
                   </div>
                 </div>
               </div>
@@ -82,22 +66,16 @@
 
         </div>
 
-        <!-- Total Bill Section -->
-        <div class="col-md-4">
-          <div class="total-section">
-            <!-- Total Calculation -->
-            <div class="total mt-4">
-              <h5>Cart Subtotal: <span class="text-success" id="cartSubtotal">RM0.00</span></h5>
-              <h5>Shipping Charge: <span class="text-success">RM0.00</span></h5>
-              <h4>Total Amount: <span class="text-success" id="totalAmount">RM0.00</span></h4>
-            </div>
+        <!-- Summary -->
+        <div class="col-lg-4">
+          <div class="summary-card p-4">
+            <h5>Subtotal: <span id="cartSubtotal" class="text-success">RM0.00</span></h5>
+            <h5>Shipping: <span class="text-success">RM0.00</span></h5>
+            <h4>Total: <span id="totalAmount" class="text-success">RM0.00</span></h4>
 
-            <!-- Buttons -->
-            <div class="text-center mt-4">
-              <a href="chechoutPage.html">
-                <button class="btn btn-success">Proceed to Checkout</button>
-              </a>
-              <button class="btn btn-outline-danger ms-2">Cancel Order</button>
+            <div class="d-grid mt-4">
+              <a href="CheckoutPage.html" class="btn btn-success mb-2">Proceed to Checkout</a>
+              <button class="btn btn-outline-danger" onclick="cancelOrder()">Cancel Order</button>
             </div>
           </div>
         </div>
@@ -106,47 +84,6 @@
   </section>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <script>
-    // Function to update the quantity
-    function updateQuantity(itemId, change) {
-      let quantityInput = document.querySelector(`#quantity${itemId}`);
-      let currentQuantity = parseInt(quantityInput.value);
-      let newQuantity = currentQuantity + change;
-
-      // Ensure quantity doesn't go below 1
-      if (newQuantity > 0) {
-        quantityInput.value = newQuantity;
-        updateTotal();
-      }
-    }
-
-    // Function to remove an item
-    function removeItem(itemId) {
-      let item = document.querySelector(`#item${itemId}`);
-      item.remove();
-      updateTotal();
-    }
-
-    // Function to calculate the total dynamically
-    function updateTotal() {
-      let total = 0;
-      let items = document.querySelectorAll('.card-body'); // Loop through all items
-
-      // Loop through each item and calculate the total
-      items.forEach(item => {
-        let price = parseFloat(item.querySelector('p[data-price]').getAttribute('data-price')); // Get price from data-price attribute
-        let quantity = parseInt(item.querySelector('input').value); // Get quantity from input
-        total += price * quantity; // Add to total
-      });
-
-      // Update the total values in the UI
-      document.getElementById('cartSubtotal').textContent = `RM${total.toFixed(2)}`;
-      document.getElementById('totalAmount').textContent = `RM${total.toFixed(2)}`;
-    }
-
-    // Initial update
-    updateTotal();
-  </script>
+  <script src="../../view_js/OnlineWebPage/viewOrderPage.js"></script>
 </body>
 </html>
