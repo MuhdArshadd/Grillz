@@ -91,3 +91,34 @@ body {
 .footer-section {
   background-color: #1e1e1e;
 }
+
+/* Stars Rating */
+.stars {
+  color: #ffd700; /* Golden yellow color for stars */
+  font-size: 1.25rem;
+  letter-spacing: 0.15rem;
+}
+
+.stars i {
+  margin: 0 2px;
+  transition: all 0.3s ease;
+}
+
+/* Optional hover effect */
+.blockquote:hover .stars i {
+  transform: scale(1.2);
+  text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+}
+
+/* Make testimonials stand out more */
+.testimonials-section .blockquote {
+  padding: 2rem;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.testimonials-section .blockquote:hover {
+  transform: translateY(-5px);
+  background-color: rgba(0, 0, 0, 0.3);
+}

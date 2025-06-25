@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php'; // Loads composer packages
+require_once __DIR__ . '/../Libraries/vendor/autoload.php'; // Loads composer packages
 
 use Dotenv\Dotenv;
 
@@ -15,7 +15,9 @@ $password = $_ENV['DB_PASSWORD'];
 try {
     $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
     $pdo = new PDO($dsn, $user, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false
     ]);
 
     // Log connection success to error log
@@ -31,6 +33,14 @@ try {
         exit;
     }
 
+    // Test the connection
+    $stmt = $pdo->query("SELECT current_database()");
+    error_log("Connected to database: " . $stmt->fetchColumn());
+    
+    // Check if users table exists and its structure
+    $stmt = $pdo->query("SELECT column_name, data_type FROM information_schema.columns WHERE table_name = 'users'");
+    error_log("Users table structure: " . print_r($stmt->fetchAll(), true));
+
 } catch (PDOException $e) {
     header('Content-Type: application/json');
     echo json_encode([
@@ -41,4 +51,3 @@ try {
     exit;
 }
 ?>
-x

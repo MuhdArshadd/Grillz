@@ -59,14 +59,77 @@
   font-weight: 900;
 }
 
-/* Cards */
+/* Menu Cards */
 .card {
+  border: none;
+  border-radius: 15px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 20px rgba(202, 120, 66, 0.5);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+  height: 350px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding: 1.25rem;
+}
+
+.card-title {
+  font-weight: bold;
+  color: var(--brown-dark);
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.price {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0.5rem 0;
+  color: var(--orange-burnt);
+}
+
+.card-text {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  flex-grow: 1;
+}
+
+.btn-brown {
+  width: 100%;
+  padding: 0.75rem;
+  font-weight: 600;
+  margin-top: auto;
+  transition: all 0.3s ease;
+}
+
+.btn-brown:hover {
+  background-color: var(--orange-burnt);
+  color: white;
+}
+
+/* Menu Grid */
+.menu-items .row {
+  margin-right: -1rem;
+  margin-left: -1rem;
+}
+
+.menu-items .col-md-4 {
+  padding: 1rem;
 }
 
 /* Floating view order button */
@@ -90,4 +153,110 @@
   background-color: var(--brown-dark);
   color: var(--yellow-light);
   box-shadow: 0 6px 20px var(--brown-dark);
+}
+
+/* Quantity Modal Styles */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.item-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+
+.quantity-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.quantity-selector button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#quantityValue {
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 40px;
+    text-align: center;
+}
+
+/* Cart Button Styles */
+.cart-btn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+    text-decoration: none;
+}
+
+.cart-icon {
+    background-color: var(--orange-burnt);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    position: relative;
+}
+
+.cart-icon:hover {
+    transform: scale(1.1);
+    background-color: var(--brown-dark);
+}
+
+.cart-counter {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: var(--brown-dark);
+    color: white;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+/* Counter Animation */
+@keyframes counterPop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.counter-update {
+    animation: counterPop 0.3s ease;
+}
+
+/* Button Hover Effects */
+.btn-outline-brown {
+    color: var(--brown-dark);
+    border-color: var(--brown-dark);
+}
+
+.btn-outline-brown:hover {
+    background-color: var(--brown-dark);
+    color: white;
 }

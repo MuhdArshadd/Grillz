@@ -1,32 +1,83 @@
-  <nav class="navbar navbar-expand-lg py-3 custom-navbar">
-    <div class="container">
-      <a class="navbar-brand text-light" href="HomePage.html">Grillz</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+<nav class="navbar navbar-expand-lg py-3 custom-navbar">
+  <div class="container">
+    <a class="navbar-brand text-light" href="HomePage.html">Grillz</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link text-light" href="HomePage.html">HOME</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="MenuPage.html">MENU</a>
-          </li>
-          
-          <!-- Dropdown for My Account -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              MY ACCOUNT
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="accountDropdown">
-              <li><a class="dropdown-item" href="#">PROFILE</a></li>
-              <li><a class="dropdown-item" href="UserOrderListPage.html">MY ORDER</a></li>
-            </ul>
-          </li>
-
-        </ul>
-      </div>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link text-light" href="HomePage.html">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-light" href="MenuPage.html">Menu</a>
+        </li>
+        <!-- Account section -->
+        <li class="nav-item dropdown logged-in-menu" style="display: none;">
+          <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown">
+            <span class="user-name">My Account</span>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="UserOrderHistoryPage.html">Order History</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#" onclick="logoutUser()">Logout</a></li>
+          </ul>
+        </li>
+        <!-- Login link - only visible when logged out -->
+        <li class="nav-item logged-out-menu">
+          <a class="nav-link text-light" href="LoginPage.html">My Account</a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+
+<script>
+// Function to update navigation based on login status
+function updateNavigation() {
+    console.log('Updating navigation...');
+    const isLoggedIn = sessionStorage.getItem('userLoggedIn') === 'true';
+    const userData = JSON.parse(sessionStorage.getItem('userData') || '{}');
+    
+    console.log('Login status:', isLoggedIn);
+    console.log('User data:', userData);
+
+    // Get all relevant elements
+    const loggedInMenus = document.querySelectorAll('.logged-in-menu');
+    const loggedOutMenus = document.querySelectorAll('.logged-out-menu');
+    const cartItems = document.querySelectorAll('.cart-item');
+    const userNames = document.querySelectorAll('.user-name');
+
+    if (isLoggedIn) {
+        // Show logged-in elements
+        loggedInMenus.forEach(menu => menu.style.display = 'block');
+        cartItems.forEach(item => item.style.display = 'block');
+        // Hide logged-out elements
+        loggedOutMenus.forEach(menu => menu.style.display = 'none');
+        // Update username if available
+        if (userData.fullname) {
+            userNames.forEach(name => name.textContent = userData.fullname);
+        }
+    } else {
+        // Show logged-out elements
+        loggedOutMenus.forEach(menu => menu.style.display = 'block');
+        // Hide logged-in elements
+        loggedInMenus.forEach(menu => menu.style.display = 'none');
+        cartItems.forEach(item => item.style.display = 'none');
+    }
+}
+
+// Update navigation when the page loads
+document.addEventListener('DOMContentLoaded', updateNavigation);
+
+// Listen for login state changes
+window.addEventListener('storage', function(e) {
+    if (e.key === 'userLoggedIn' || e.key === 'userData') {
+        updateNavigation();
+    }
+});
+
+// Initial update
+updateNavigation();
+</script>

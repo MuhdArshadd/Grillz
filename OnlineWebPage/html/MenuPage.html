@@ -6,7 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../css/navigationBarStyle.css" />
-  <link rel="stylesheet" href="../css/OnlineWebPage/menupageStyle.css" />
+  <link rel="stylesheet" href="../css/menupageStyle.css" />
+  <script src="../js/user_auth.js"></script>
+  <script src="../js/navigationManager.js"></script>
 </head>
 <body>
   <!-- Navbar -->
@@ -26,6 +28,12 @@
       });
   </script>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    window.navigationManager.loadNavigation();
+  });
+</script>
+
   <!-- Hero -->
   <section class="hero bg-brown text-center text-light py-5">
     <div class="container">
@@ -35,17 +43,73 @@
     </div>
   </section>
 
-  <!-- Dynamic Menu Container -->
+  <!-- Menu Items -->
   <section class="menu-items py-5 bg-yellow-light">
-    <div class="container" id="menu-container">
-      <!-- Dynamic menu items will be inserted here -->
+    <div class="container">
+      <div class="row g-4" id="menu-container">
+        <!-- Menu items will be dynamically inserted here -->
+      </div>
     </div>
   </section>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../html/OnlineWebPage/fetchMenu.js"></script>
+  <!-- Quantity Selector Modal (only shown for logged-in users) -->
+  <div class="modal fade" id="quantityModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Select Quantity</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text-center">
+          <div class="item-details mb-4">
+            <img id="modalItemImage" src="" alt="" class="item-image mb-2">
+            <h6 id="modalItemName" class="mb-2"></h6>
+            <p id="modalItemPrice" class="text-orange"></p>
+          </div>
+          <div class="quantity-selector">
+            <button class="btn btn-outline-brown" onclick="decrementQuantity()">-</button>
+            <span id="quantityValue" class="mx-4">1</span>
+            <button class="btn btn-outline-brown" onclick="incrementQuantity()">+</button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-brown" onclick="confirmAddToCart()">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- Floating Order Button -->
-  <a href="ViewOrder.html" class="btn btn-orange view-order-btn shadow-lg">View Order</a>
+  <!-- Cart Icon (only shown for logged-in users) -->
+  <a href="ViewOrder.html" class="cart-btn" id="cart-button" style="display: none;">
+    <div class="cart-icon">
+      <i class="bi bi-cart3"></i>
+      <span id="cart-counter" class="cart-counter">0</span>
+    </div>
+  </a>
+
+  <!-- Login Prompt Modal -->
+  <div class="modal fade" id="loginPromptModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Login Required</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Please login to add items to your cart.</p>
+        </div>
+        <div class="modal-footer">
+          <a href="LoginPage.html" class="btn btn-brown">Login</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/cart.js"></script>
 </body>
 </html>

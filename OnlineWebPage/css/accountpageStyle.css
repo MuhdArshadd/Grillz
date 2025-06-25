@@ -7,71 +7,140 @@
   --light-bg: #fdfcf9;
 }
 
-/* Register Section */
-.register-section {
+body {
   background-color: var(--light-bg);
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Auth Section Styling */
+.auth-section {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  background: linear-gradient(135deg, var(--brown-dark) 0%, var(--orange-burnt) 100%);
 }
 
-.register-section h2 {
-  font-weight: 800;
+.auth-card {
+  background: white;
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.brand-logo {
   color: var(--brown-dark);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
 }
 
-/* Form Container */
-.register-section .form-control {
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  border: 1px solid #ccc;
+.auth-title {
+  color: var(--brown-dark);
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.auth-subtitle {
+  color: #666;
   font-size: 1rem;
+  margin-bottom: 2rem;
 }
 
-.register-section .form-control:focus {
-  border-color: var(--orange-burnt);
-  box-shadow: 0 0 5px rgba(202, 120, 66, 0.5);
+/* Form Styling */
+.input-group {
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-/* Submit Button */
-.register-section .btn-success {
-  background-color: var(--orange-burnt);
-  border-color: var(--orange-burnt);
-  font-weight: bold;
-  padding: 0.75rem;
-  border-radius: 25px;
-  font-size: 1.1rem;
-  transition: background-color 0.3s ease;
-}
-
-.register-section .btn-success:hover {
-  background-color: var(--brown-dark);
-  border-color: var(--brown-dark);
-  color: var(--yellow-light);
-}
-
-/* Link to login */
-.register-section a.text-success {
-  font-weight: 600;
-  text-decoration: underline;
+.input-group-text {
+  background-color: white;
+  border-right: none;
   color: var(--orange-burnt);
 }
 
-.register-section a.text-success:hover {
-  color: var(--brown-dark);
+.input-group-text i {
+  width: 1rem;
+  text-align: center;
+}
+
+.form-control {
+  border-left: none;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+.input-group:focus-within {
+  box-shadow: 0 0 0 0.25rem rgba(202, 120, 66, 0.25);
+}
+
+.input-group:focus-within .input-group-text,
+.input-group:focus-within .form-control {
+  border-color: var(--orange-burnt);
+}
+
+/* Button Styling */
+.btn-primary {
+  background-color: var(--orange-burnt);
+  border-color: var(--orange-burnt);
+  padding: 0.75rem;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--brown-dark);
+  border-color: var(--brown-dark);
+  transform: translateY(-2px);
+}
+
+/* Link Styling */
+.text-primary {
+  color: var(--orange-burnt) !important;
   text-decoration: none;
+  transition: color 0.3s ease;
 }
 
-/* Register Message */
-#registerMessage {
-  font-size: 0.95rem;
-  color: #cc0000;
+.text-primary:hover {
+  color: var(--brown-dark) !important;
 }
 
-/* Responsive adjustments */
+/* Message Styling */
+#registerMessage, #loginMessage {
+  color: #dc3545;
+  font-size: 0.9rem;
+}
+
+/* Responsive Adjustments */
 @media (max-width: 768px) {
-  .register-section .col-md-6 {
-    padding: 0 1rem;
+  .auth-card {
+    padding: 1.5rem;
+    margin: 1rem;
+  }
+  
+  .auth-title {
+    font-size: 1.5rem;
+  }
+}
+
+/* Animation */
+.auth-card {
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
