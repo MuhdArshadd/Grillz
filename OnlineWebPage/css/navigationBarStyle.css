@@ -45,3 +45,30 @@
   color: var(--brown-dark) !important;
   border-radius: 8px;
 }
+
+/*======== Dropdown Menu Styling ========*/
+.dropdown-menu {
+  background-color: var(--brown-dark) !important;
+  border: 2px solid var(--yellow-light) !important;
+  border-radius: 10px !important;
+  padding: 0.5rem 0 !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25) !important;
+  z-index: 1000 !important;
+}
+
+.dropdown-item {
+  color: var(--yellow-light) !important;
+  font-weight: 600 !important;
+  padding: 0.5rem 1.5rem !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  transition: all 0.3s ease-in-out !important;
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+  background-color: var(--orange-burnt) !important;
+  color: var(--brown-dark) !important;
+  border-radius: 6px !important;
+}
+

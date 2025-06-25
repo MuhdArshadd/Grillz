@@ -131,11 +131,6 @@ input:focus {
   color: white;
 }
 
-/* === PayPal Section === */
-#paypal-button-container {
-  margin-top: 1rem;
-}
-
 /* === Checkbox & Radio === */
 .form-check-label {
   color: var(--brown-dark);
@@ -145,4 +140,39 @@ input:focus {
 .form-check-input:checked {
   background-color: var(--orange-burnt);
   border-color: var(--orange-burnt);
+}
+
+/* === Cancel Order Button === */
+#cancelOrderButton {
+  background-color: #dc3545;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#cancelOrderButton:hover {
+  background-color: #c82333;
+  color: white;
+}
+
+.modal-content {
+  border-radius: 1rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  font-weight: bold;
+  color: #198754;
+}
+
+.modal-body p {
+  margin-bottom: 0.5rem;
 }

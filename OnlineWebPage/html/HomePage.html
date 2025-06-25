@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Grillz™ - Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/navigationBarStyle.css">
+  <link rel="stylesheet" href="../css/homepageStyle.css">
+</head>
+<body>
+
+  <!-- Video Background -->
+  <video autoplay muted loop playsinline class="video-background">
+    <source src="../assets/video/burger-grill.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Navbar Placeholder -->
+  <div id="navbar-placeholder"></div>
+  <script>
+    fetch('NavigationBar.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-placeholder').innerHTML = data;
+        const currentPage = window.location.pathname.split("/").pop();
+        document.querySelectorAll(".navbar-nav .nav-link").forEach(link => {
+          const href = link.getAttribute("href");
+          if (href && currentPage === href) {
+            link.classList.add("active");
+          }
+        });
+      });
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero-section d-flex align-items-center text-white text-center">
+    <div class="container hero-overlay">
+      <h1 class="display-3 fw-bold">Welcome to Grillz</h1>
+      <p class="lead">Fresh, flame-grilled burgers made with passion and fire.</p>
+      <div class="mt-4">
+        <a href="MenuPage.html" class="btn btn-lg btn-custom me-2">View Menu</a>
+        <a href="OrderPage.html" class="btn btn-lg btn-outline-light">Order Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-section py-5 bg-light text-center">
+    <div class="container">
+      <h2 class="fw-bold mb-3">Why Grillz?</h2>
+      <p class="lead">We craft every burger with 100% beef, toasted buns, and the boldest flavors.</p>
+    </div>
+  </section>
+
+  <!-- Best Sellers -->
+  <section class="best-sellers-section py-5 text-center text-white">
+    <div class="container">
+      <h2 class="fw-bold mb-4">Best Sellers</h2>
+      <div class="row">
+        <div class="col-md-4 mb-4">
+          <div class="card bg-dark text-light h-100">
+            <img src="../assets/food/smoky-beef.jpg" class="card-img-top" alt="Smoky Beef">
+            <div class="card-body">
+              <h5 class="card-title">Smoky Beef</h5>
+              <p class="card-text">Juicy grilled beef with smoky BBQ sauce.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card bg-dark text-light h-100">
+            <img src="../assets/food/spicy-chicken.jpg" class="card-img-top" alt="Spicy Chicken">
+            <div class="card-body">
+              <h5 class="card-title">Spicy Chicken</h5>
+              <p class="card-text">Crispy chicken, spicy mayo, and pickles.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-4">
+          <div class="card bg-dark text-light h-100">
+            <img src="../assets/food/veggie-delight.jpg" class="card-img-top" alt="Veggie Delight">
+            <div class="card-body">
+              <h5 class="card-title">Veggie Delight</h5>
+              <p class="card-text">Grilled mushrooms, avocado, and fresh greens.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works py-5 bg-light text-center">
+    <div class="container">
+      <h2 class="fw-bold mb-3">How It Works</h2>
+      <div class="row">
+        <div class="col-md-4">
+          <h5>1. Scan QR</h5>
+          <p>Walk-in customers scan the QR at their table.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>2. Browse Menu</h5>
+          <p>Explore our handcrafted burger selections.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>3. Order & Enjoy</h5>
+          <p>Place your order and we'll serve it fresh and hot.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials-section py-5 text-white text-center">
+    <div class="container">
+      <h2 class="fw-bold mb-4">Customer Love</h2>
+      <blockquote class="blockquote">
+        <p class="mb-0">“Best burger joint in town. The Smoky Beef is unbeatable!”</p>
+        <footer class="blockquote-footer text-white-50">- Amir, Regular Customer</footer>
+      </blockquote>
+      <blockquote class="blockquote mt-4">
+        <p class="mb-0">“Great service, fast ordering, and fantastic taste. 10/10.”</p>
+        <footer class="blockquote-footer text-white-50">- Farah, Food Blogger</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer-section bg-dark text-white py-4 text-center">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 Grillz™. All rights reserved.</p>
+      <small>Open daily from 11AM to 11PM</small>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
