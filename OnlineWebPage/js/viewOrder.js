@@ -94,12 +94,41 @@ function clearCart() {
 
 // Function to proceed to checkout
 function proceedToCheckout() {
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  if (cart.length === 0) {
-      alert('Your cart is empty!');
-      return;
-  }
-  window.location.href = 'CheckoutPage.html';
+    // First check if user is logged in
+    const isLoggedIn = sessionStorage.getItem('userLoggedIn') === 'true';
+    if (!isLoggedIn) {
+        alert('Please login to proceed with checkout');
+        window.location.href = 'LoginPage.html';
+        return;
+    }
+
+    // Get cart data
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Check if cart is empty
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+
+    // Calculate totals
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const tax = subtotal * 0.06;
+    const total = subtotal + tax;
+
+    // Store checkout data in sessionStorage
+    const checkoutData = {
+        items: cart,
+        subtotal: subtotal,
+        tax: tax,
+        total: total
+    };
+    
+    // Store checkout data before redirect
+    sessionStorage.setItem('checkoutData', JSON.stringify(checkoutData));
+
+    // Redirect to checkout page with absolute path
+    window.location.href = 'CheckoutPage.html';
 }
 
 // Initialize the view order page
