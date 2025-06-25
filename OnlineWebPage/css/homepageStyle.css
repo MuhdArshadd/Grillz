@@ -11,14 +11,17 @@ body {
   background-color: var(--brown-dark);
 }
 
-/* Video background */
-.video-background {
+/* Background GIF */
+.background-gif {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  object-fit: cover;
+  background-image: url('../assets/other/background_home.gif');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   z-index: -1;
 }
 
@@ -69,9 +72,14 @@ body {
   background-color: var(--brown-dark);
 }
 
+.best-sellers-section .card {
+  overflow: hidden;
+}
+
 .best-sellers-section .card-img-top {
-  height: 200px;
+  height: 350px;
   object-fit: cover;
+  object-position: center;
 }
 
 /* Testimonials */
