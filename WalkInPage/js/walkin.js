@@ -49,7 +49,7 @@ async function handleVisitorRegistration(event) {
             }));
             
             // Redirect to menu page
-            window.location.href = `MenuPage.html?mode=walkIn&table=${tableId}`;
+            window.location.href = `../../OnlineWebPage/html/MenuPage.html?mode=walkIn&table=${tableId}`;
         } else {
             alert(result.message || 'Failed to register visitor');
         }
