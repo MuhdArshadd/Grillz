@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grillz™ - Table Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/navigationBarStyle.css">
+    <link rel="stylesheet" href="../css/walkInPageStyle.css">
+</head>
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card table-registration-card">
+                    <div class="card-body text-center">
+                        <h2 class="card-title mb-4">Welcome to Grillz™</h2>
+                        <div id="tableInfo">
+                            <i class="bi bi-table fs-1 mb-3"></i>
+                            <h3>Table #<span id="tableNumber"></span></h3>
+                            <p class="text-muted">Please enter your details to proceed with your order</p>
+                        </div>
+
+                        <form id="visitorForm" class="mt-4">
+                            <div class="mb-3">
+                                <input type="text" class="form-control" id="visitorName" placeholder="Your Name" required>
+                            </div>
+                            <div class="mb-3">
+                                <input type="tel" class="form-control" id="visitorPhone" placeholder="Phone Number" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Proceed to Menu</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/navigationManager.js"></script>
+    <script src="../js/walkIn.js"></script>
+</body>
+</html>

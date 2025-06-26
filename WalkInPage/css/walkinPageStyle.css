@@ -1,0 +1,43 @@
+.table-registration-card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+.table-registration-card .card-title {
+    color: #4B352A;
+    font-weight: bold;
+}
+
+.bi-table {
+    color: #CA7842;
+    font-size: 3rem;
+}
+
+#tableNumber {
+    color: #CA7842;
+    font-weight: bold;
+}
+
+.form-control {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.form-control:focus {
+    border-color: #CA7842;
+    box-shadow: 0 0 0 0.2rem rgba(202, 120, 66, 0.25);
+}
+
+.btn-primary {
+    background-color: #4B352A;
+    border: none;
+    padding: 12px;
+    font-weight: 600;
+}
+
+.btn-primary:hover {
+    background-color: #CA7842;
+}

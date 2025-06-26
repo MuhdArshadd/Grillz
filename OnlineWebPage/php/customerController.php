@@ -132,6 +132,125 @@ function handleRegister() {
     }
 }
 
+function handleGetOrderHistory() {
+    global $pdo;
+    
+    try {
+        $userId = $_GET['userId'] ?? null;
+        
+        if (!$userId) {
+            throw new Exception('User ID is required');
+        }
+
+        // Get all orders for the user with proper type casting
+        $sql = "SELECT 
+                    o.orderid::integer as orderid,
+                    o.orderstatus,
+                    o.ordertimestamp::timestamp as ordertimestamp,
+                    o.orderpaymentstatus,
+                    c.cartid::integer as cartid,
+                    CAST(p.totalbill AS DECIMAL(10,2)) as totalbill
+                FROM public.\"Order\" o
+                JOIN public.cart c ON o.cartid = c.cartid
+                JOIN public.payment p ON c.userid = p.userid AND DATE(o.ordertimestamp) = DATE(p.paymenttimestamp)
+                WHERE c.userid = :userId
+                ORDER BY o.ordertimestamp DESC";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['userId' => $userId]);
+        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Get items for each order
+        foreach ($orders as &$order) {
+            $itemsSql = "SELECT 
+                            f.foodid::integer as foodid,
+                            f.name,
+                            CAST(f.price AS DECIMAL(10,2)) as price,
+                            cf.foodquantity::integer as quantity
+                        FROM public.cart_food cf
+                        JOIN public.food f ON cf.foodid = f.foodid
+                        WHERE cf.cartid = :cartId";
+            
+            $itemsStmt = $pdo->prepare($itemsSql);
+            $itemsStmt->execute(['cartId' => $order['cartid']]);
+            $items = $itemsStmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Add image paths to items
+            foreach ($items as &$item) {
+                $item['image'] = getImagePathForFood($item['foodid']);
+            }
+            
+            $order['items'] = $items;
+        }
+
+        echo json_encode([
+            'success' => true,
+            'orders' => $orders
+        ]);
+
+    } catch (Exception $e) {
+        error_log("Error in getOrderHistory: " . $e->getMessage());
+        echo json_encode([
+            'success' => false,
+            'message' => 'Failed to fetch order history: ' . $e->getMessage()
+        ]);
+    }
+}
+
+function getImagePathForFood($foodId) {
+    $imageMap = [
+        1 => "../assets/food/cheese_lover_burger.png",
+        2 => "../assets/food/chicken_deluxe_burger.png",
+        3 => "../assets/food/grilled_beef_burger.png",
+        4 => "../assets/food/1.png",
+        5 => "../assets/food/2.png",
+        6 => "../assets/food/3.png",
+        7 => "../assets/food/4.png",
+        8 => "../assets/food/5.png",
+        9 => "../assets/food/6.png"
+    ];
+    
+    return $imageMap[$foodId] ?? "../assets/food/1.png"; // Default image if ID not found
+}
+
+function handleRegisterVisitor() {
+    global $pdo;
+    
+    try {
+        $data = json_decode(file_get_contents('php://input'), true);
+        
+        // Validate input
+        if (!isset($data['tableId']) || !isset($data['visitorName']) || !isset($data['visitorPhone'])) {
+            throw new Exception('Missing required fields');
+        }
+
+        // Insert visitor record
+        $sql = "INSERT INTO public.visitor (tableid, visitedtimestamp) 
+                VALUES (:tableId, NOW()) 
+                RETURNING visitorid";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute([
+            'tableId' => $data['tableId']
+        ]);
+        
+        $visitorId = $stmt->fetchColumn();
+
+        echo json_encode([
+            'success' => true,
+            'visitorId' => $visitorId,
+            'message' => 'Visitor registered successfully'
+        ]);
+
+    } catch (Exception $e) {
+        error_log("Error in registerVisitor: " . $e->getMessage());
+        echo json_encode([
+            'success' => false,
+            'message' => 'Failed to register visitor: ' . $e->getMessage()
+        ]);
+    }
+}
+
 // Route the request to appropriate handler
 try {
     switch ($endpoint) {
@@ -140,6 +259,12 @@ try {
             break;
         case 'register':
             handleRegister();
+            break;
+        case 'getOrderHistory':
+            handleGetOrderHistory();
+            break;
+        case 'registerVisitor':
+            handleRegisterVisitor();
             break;
         default:
             http_response_code(404);
