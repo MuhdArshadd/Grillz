@@ -1,0 +1,140 @@
+/* Main card styling */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    background-color: #fff;
+}
+
+/* Card header styling */
+.card-header {
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+    border: none;
+}
+
+.bg-brown {
+    background-color: #4B352A;
+}
+
+#tableNumber {
+    color: #CA7842;
+    font-weight: bold;
+}
+
+.text-orange {
+    color: #CA7842;
+}
+
+/* Status Timeline */
+.status-timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.status-step {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+    opacity: 0.5;
+}
+
+.status-step.active {
+    opacity: 1;
+}
+
+.status-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 40px;
+    width: 2px;
+    height: 30px;
+    background-color: #4B352A;
+}
+
+.status-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #4B352A;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+}
+
+.status-icon i {
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.status-text {
+    flex-grow: 1;
+}
+
+.status-text h6 {
+    margin: 0;
+    color: #4B352A;
+    font-weight: 600;
+}
+
+.status-text small {
+    color: #6c757d;
+}
+
+/* Order items styling */
+.order-items {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.order-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.order-item:last-child {
+    border-bottom: none;
+}
+
+/* Button styling */
+.btn-brown {
+    background-color: #4B352A;
+    border: none;
+    padding: 12px 25px;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.btn-brown:hover {
+    background-color: #CA7842;
+    color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    
+    .status-step:not(:last-child)::after {
+        left: 20px;
+    }
+    
+    .status-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .status-icon i {
+        font-size: 1.2rem;
+    }
+} 

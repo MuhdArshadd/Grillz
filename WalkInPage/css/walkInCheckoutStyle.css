@@ -1,0 +1,290 @@
+/* Base styles and variables */
+:root {
+    --brown: #4B352A;
+    --orange: #CA7842;
+    --light-orange: #FFF8F6;
+    --gray: #6c757d;
+    --light-gray: #f8f9fa;
+    --border-radius: 15px;
+    --box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+body {
+    background-color: var(--light-gray);
+}
+
+/* Card Styling */
+.checkout-card {
+    border: none;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    overflow: hidden;
+}
+
+.card-header {
+    padding: 1.5rem;
+    border: none;
+}
+
+.bg-brown {
+    background-color: var(--brown);
+}
+
+.text-orange {
+    color: var(--orange);
+}
+
+/* Section Styling */
+.section-title {
+    color: var(--brown);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--light-gray);
+}
+
+/* Order Items Styling */
+.order-items-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+}
+
+.order-item {
+    background-color: var(--light-gray);
+    border-radius: 10px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    transition: transform 0.2s;
+}
+
+.order-item:hover {
+    transform: translateY(-2px);
+}
+
+.order-item-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* Payment Section Styling */
+.payment-section {
+    margin: 2rem 0;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.payment-option-wrapper {
+    position: relative;
+}
+
+.payment-radio {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.payment-label {
+    display: flex;
+    align-items: center;
+    padding: 1.25rem;
+    background-color: white;
+    border: 2px solid var(--light-gray);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-radio:checked + .payment-label {
+    border-color: var(--orange);
+    background-color: var(--light-orange);
+}
+
+.payment-icon {
+    width: 48px;
+    height: 48px;
+    background-color: var(--light-gray);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.payment-icon i {
+    font-size: 1.5rem;
+    color: var(--brown);
+}
+
+.payment-details {
+    flex-grow: 1;
+}
+
+.payment-title {
+    display: block;
+    font-weight: 600;
+    color: var(--brown);
+    margin-bottom: 0.25rem;
+}
+
+.payment-description {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--gray);
+}
+
+.payment-check {
+    display: none;
+    color: var(--orange);
+    font-size: 1.25rem;
+}
+
+.payment-radio:checked + .payment-label .payment-check {
+    display: block;
+}
+
+/* Total Section Styling */
+.total-section {
+    background-color: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: 12px;
+    margin: 2rem 0;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    color: var(--gray);
+}
+
+.total-final {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 2px solid white;
+    font-weight: 600;
+    color: var(--brown);
+}
+
+.total-amount {
+    color: var(--orange);
+    font-size: 1.25rem;
+}
+
+/* Button Styling */
+.btn-brown {
+    background-color: var(--brown);
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.btn-brown:hover {
+    background-color: var(--orange);
+    color: white;
+}
+
+.btn-outline-secondary {
+    border: 2px solid var(--brown);
+    color: var(--brown);
+    padding: 1rem;
+    font-weight: 600;
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--brown);
+    border-color: var(--brown);
+    color: white;
+}
+
+/* PayPal Modal Styling */
+.paypal-btn {
+    background-color: #0070BA;
+    border: none;
+    padding: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+}
+
+.paypal-btn:hover {
+    background-color: #005ea6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 0.5rem;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .payment-label {
+        padding: 1rem;
+    }
+
+    .payment-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .payment-icon i {
+        font-size: 1.25rem;
+    }
+
+    .payment-title {
+        font-size: 1rem;
+    }
+
+    .payment-description {
+        font-size: 0.75rem;
+    }
+
+    .total-section {
+        padding: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .order-item {
+        padding: 0.75rem;
+    }
+
+    .order-item-image {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+/* Small screens */
+@media (max-width: 375px) {
+    .card-header {
+        padding: 1rem;
+    }
+
+    .payment-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .payment-description {
+        display: none;
+    }
+}

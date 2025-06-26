@@ -24,7 +24,7 @@ async function handleVisitorRegistration(event) {
     const visitorPhone = document.getElementById('visitorPhone').value;
 
     try {
-        const response = await fetch('http://localhost/Grillz-1/OnlineWebPage/php/customerController.php?endpoint=registerVisitor', {
+        const response = await fetch('http://localhost/webdevproject/Grillz2/OnlineWebPage/php/customerController.php?endpoint=registerVisitor', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -49,7 +49,7 @@ async function handleVisitorRegistration(event) {
             }));
             
             // Redirect to menu page
-            window.location.href = `../../OnlineWebPage/html/MenuPage.html?mode=walkIn&table=${tableId}`;
+            window.location.href = `../html/WalkInMenuPage.html?mode=walkIn&table=${tableId}`;
         } else {
             alert(result.message || 'Failed to register visitor');
         }

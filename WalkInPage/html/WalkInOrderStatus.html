@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grillz™ - Order Status</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/walkinOrderStatus.css">
+</head>
+<body>
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-brown text-white">
+                        <h4 class="mb-0">Order Status</h4>
+                        <h6 id="tableDisplay" class="text-orange mb-0">Table #<span id="tableNumber"></span></h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="order-info mb-4">
+                            <p class="mb-1">Order #<span id="orderId"></span></p>
+                            <p class="mb-0">Ordered at: <span id="orderTime"></span></p>
+                        </div>
+
+                        <div class="status-timeline">
+                            <div class="status-step" id="confirmedStep">
+                                <div class="status-icon">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </div>
+                                <div class="status-text">
+                                    <h6>Confirmed</h6>
+                                    <small id="confirmedTime"></small>
+                                </div>
+                            </div>
+                            <div class="status-step" id="preparingStep">
+                                <div class="status-icon">
+                                    <i class="bi bi-fire"></i>
+                                </div>
+                                <div class="status-text">
+                                    <h6>Preparing</h6>
+                                    <small id="preparingTime"></small>
+                                </div>
+                            </div>
+                            <div class="status-step" id="readyStep">
+                                <div class="status-icon">
+                                    <i class="bi bi-check2-all"></i>
+                                </div>
+                                <div class="status-text">
+                                    <h6>Ready to Serve</h6>
+                                    <small id="readyTime"></small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="order-items mt-4">
+                            <h5 class="mb-3">Order Details</h5>
+                            <div id="orderItemsList">
+                                <!-- Order items will be displayed here -->
+                            </div>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <a href="WalkInPage.html" class="btn btn-brown btn-lg">Done</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/walkinOrderStatus.js"></script>
+</body>
+</html> 

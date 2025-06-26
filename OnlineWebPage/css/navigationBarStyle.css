@@ -6,6 +6,10 @@
   --yellow-light: #F0F2BD;
 }
 
+.navbar { 
+  background-color: var(--brown-dark) !important;
+}
+
 /* ======== Navbar Styling ======== */
 .custom-navbar {
   background-color: var(--brown-dark) !important;
