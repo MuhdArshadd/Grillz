@@ -13,6 +13,7 @@ switch ($endpoint) {
     case 'processPayPalPayment':
         handlePayPalPayment($pdo, $data);
         break;
+    
     default:
         echo json_encode(['success' => false, 'message' => 'Invalid endpoint']);
         break;
@@ -116,18 +117,20 @@ function handlePayPalPayment($pdo, $data) {
                         NOW(),
                         'Paid',
                         true
-                    )";
+                    ) RETURNING orderid";
         
         $orderStmt = $pdo->prepare($orderSql);
         if (!$orderStmt->execute(['cartId' => $cartId])) {
             throw new Exception('Failed to create order');
         }
+        $orderId = $orderStmt->fetchColumn();
 
         $pdo->commit();
 
         echo json_encode([
             'success' => true,
             'message' => 'Payment processed successfully',
+            'orderId' => $orderId,
             'debug' => [
                 'userId' => $userId,
                 'cartId' => $cartId,

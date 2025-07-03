@@ -24,7 +24,7 @@ async function handleVisitorRegistration(event) {
     const visitorPhone = document.getElementById('visitorPhone').value;
 
     try {
-        const response = await fetch('http://localhost/webdevproject/Grillz2/OnlineWebPage/php/customerController.php?endpoint=registerVisitor', {
+        const response = await fetch('http://localhost/Grillz/OnlineWebPage/php/customerController.php?endpoint=registerVisitor', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -44,7 +44,7 @@ function isUserLoggedIn() {
   // Login function
   async function loginUser(email, password) {
       try {
-          const response = await fetch('http://localhost/Grillz-1/OnlineWebPage/php/customerController.php?endpoint=login', {
+          const response = await fetch('http://localhost/Grillz/OnlineWebPage/php/customerController.php?endpoint=login', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

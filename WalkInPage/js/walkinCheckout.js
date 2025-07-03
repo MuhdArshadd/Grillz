@@ -13,15 +13,80 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Load and display cart items
     displayOrderItems();
+
+    // Initialize PayPal Buttons
+    initializePayPalButtons();
 });
+
+function initializePayPalButtons() {
+    paypal.Buttons({
+        style: {
+            layout: 'vertical',
+            color:  'gold',
+            shape:  'rect',
+            label:  'paypal'
+        },
+        
+        createOrder: function(data, actions) {
+            const tableId = new URLSearchParams(window.location.search).get('table');
+            const cart = JSON.parse(localStorage.getItem(`walkInCart_${tableId}`)) || [];
+            
+            // Calculate totals
+            const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const tax = subtotal * 0.06;
+            const total = subtotal + tax;
+            
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        currency_code: "MYR",
+                        value: total.toFixed(2),
+                        breakdown: {
+                            item_total: {
+                                currency_code: "MYR",
+                                value: subtotal.toFixed(2)
+                            },
+                            tax_total: {
+                                currency_code: "MYR",
+                                value: tax.toFixed(2)
+                            }
+                        }
+                    },
+                    items: cart.map(item => ({
+                        name: item.name,
+                        unit_amount: {
+                            currency_code: "MYR",
+                            value: item.price.toFixed(2)
+                        },
+                        quantity: item.quantity
+                    }))
+                }]
+            });
+        },
+        
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(orderData) {
+                // Payment successful
+                proceedToOrderStatus('paypal', orderData.id);
+            });
+        },
+        
+        onError: function(err) {
+            console.error('PayPal Error:', err);
+            alert('There was an error processing your payment. Please try again.');
+        }
+    }).render('#paypal-button-container');
+}
 
 function displayOrderItems() {
     const tableId = new URLSearchParams(window.location.search).get('table');
     const cart = JSON.parse(localStorage.getItem(`walkInCart_${tableId}`)) || [];
+    const orderTotals = JSON.parse(localStorage.getItem(`walkInTotals_${tableId}`));
     const orderItemsContainer = document.getElementById('orderItems');
 
     orderItemsContainer.innerHTML = '';
 
+    // Display cart items
     cart.forEach(item => {
         const itemTotal = item.price * item.quantity;
         
@@ -45,6 +110,22 @@ function displayOrderItems() {
         orderItemsContainer.appendChild(itemElement);
     });
 
+    // Use pre-calculated totals if available and valid
+    if (orderTotals && orderTotals.calculatedAt) {
+        const calculatedTime = new Date(orderTotals.calculatedAt);
+        const now = new Date();
+        const timeDiff = now - calculatedTime;
+        
+        // Use pre-calculated totals if they're less than 5 minutes old
+        if (timeDiff < 300000) { // 5 minutes in milliseconds
+            document.getElementById('subtotalAmount').textContent = orderTotals.subtotal.toFixed(2);
+            document.getElementById('taxAmount').textContent = orderTotals.tax.toFixed(2);
+            document.getElementById('totalAmount').textContent = orderTotals.total.toFixed(2);
+            return;
+        }
+    }
+
+    // Fallback: recalculate totals if pre-calculated totals are not available or too old
     updateTotals(cart);
 }
 
@@ -54,6 +135,19 @@ function removeItem(itemId) {
     
     cart = cart.filter(item => item.id !== itemId);
     localStorage.setItem(`walkInCart_${tableId}`, JSON.stringify(cart));
+    
+    // Recalculate and store new totals
+    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const tax = subtotal * 0.06;
+    const total = subtotal + tax;
+    
+    const orderTotals = {
+        subtotal: subtotal,
+        tax: tax,
+        total: total,
+        calculatedAt: new Date().toISOString()
+    };
+    localStorage.setItem(`walkInTotals_${tableId}`, JSON.stringify(orderTotals));
     
     displayOrderItems();
 }
@@ -73,21 +167,18 @@ function selectPayment(method) {
         }
     });
     
-    // Enable confirm button
-    document.getElementById('confirmOrderBtn').disabled = false;
-}
-
-function processPaypalPayment() {
-    // Simulate PayPal payment processing
-    const paypalBtn = document.querySelector('.paypal-btn');
-    paypalBtn.disabled = true;
-    paypalBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Processing...';
+    // Show/hide PayPal buttons and confirm button based on selection
+    const paypalContainer = document.getElementById('paypal-button-container');
+    const confirmOrderBtn = document.getElementById('confirmOrderBtn');
     
-    setTimeout(() => {
-        const modal = bootstrap.Modal.getInstance(document.getElementById('paypalModal'));
-        modal.hide();
-        proceedToOrderStatus('paypal');
-    }, 1500);
+    if (method === 'paypal') {
+        paypalContainer.style.display = 'block';
+        confirmOrderBtn.style.display = 'none';
+    } else {
+        paypalContainer.style.display = 'none';
+        confirmOrderBtn.style.display = 'block';
+        confirmOrderBtn.disabled = false;
+    }
 }
 
 function confirmOrder() {
@@ -96,16 +187,14 @@ function confirmOrder() {
         return;
     }
 
-    if (selectedPaymentMethod === 'paypal') {
-        const paypalModal = new bootstrap.Modal(document.getElementById('paypalModal'));
-        paypalModal.show();
-    } else {
-        // For cash payment, proceed directly
+    // Only handle cash payments here
+    if (selectedPaymentMethod === 'cash') {
         proceedToOrderStatus('cash');
     }
+    // PayPal payments are handled by the PayPal buttons themselves
 }
 
-function proceedToOrderStatus(paymentMethod) {
+async function proceedToOrderStatus(paymentMethod, paypalOrderId = null) {
     const tableId = new URLSearchParams(window.location.search).get('table');
     const cart = JSON.parse(localStorage.getItem(`walkInCart_${tableId}`)) || [];
     
@@ -115,33 +204,53 @@ function proceedToOrderStatus(paymentMethod) {
     const total = subtotal + tax;
     
     // Create order object
-    const order = {
-        orderId: generateOrderId(),
+    const orderDetails = {
         tableId: tableId,
         items: cart,
         subtotal: subtotal,
         tax: tax,
         total: total,
         paymentMethod: paymentMethod,
-        status: 'confirmed',
-        timestamps: {
-            ordered: new Date().toISOString(),
-            confirmed: new Date().toISOString()
-        }
+        paypal_order_id: paypalOrderId
     };
 
-    // Store order in localStorage
-    localStorage.setItem(`walkInOrder_${order.orderId}`, JSON.stringify(order));
-    
-    // Redirect to status page
-    window.location.href = `WalkInOrderStatus.html?orderId=${order.orderId}&tableId=${tableId}`;
+    try {
+        const response = await fetch('/Grillz/WalkInPage/php/walkInController.php?endpoint=createOrder', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ orderDetails })
+        });
 
-    // Clear the cart
-    localStorage.removeItem(`walkInCart_${tableId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        if (!result.success) {
+            throw new Error(result.message || 'Failed to create order');
+        }
+
+        // Clear the cart
+        localStorage.removeItem(`walkInCart_${tableId}`);
+        
+        // Redirect to status page with database orderId
+        window.location.href = `WalkInOrderStatus.html?orderId=${result.data.orderId}&tableId=${tableId}`;
+    } catch (error) {
+        console.error('Error creating order:', error);
+        alert('Failed to create order. Please try again.');
+    }
 }
 
 function generateOrderId() {
     return 'ORD' + Date.now().toString().slice(-6);
+}
+
+function generatePaypalOrderId() {
+    // Implementation of generatePaypalOrderId function
+    // This is a placeholder and should be replaced with the actual implementation
+    return 'PAYPAL' + Date.now().toString().slice(-6);
 }
 
 function updateTotals(cart) {

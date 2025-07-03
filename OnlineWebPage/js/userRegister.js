@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
         
         try {
-            const response = await fetch(`${API_URL}?endpoint=register`, {
+            const response = await fetch('../php/customerController.php?endpoint=register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

@@ -7,6 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../css/walkinCheckoutStyle.css">
+    <!-- Add PayPal SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=ARch9Vd51kWPA94uHWEqInMUKOmMzZI_x5ztE1ZKXi1XBm-Sel-N8Wvab_WRyl09g2Zds8lP9Icqzuuf&currency=MYR"></script>
 </head>
 <body>
     <div class="container py-4">
@@ -62,6 +64,9 @@
                                     </label>
                                 </div>
                             </div>
+                            
+                            <!-- Add PayPal Button Container -->
+                            <div id="paypal-button-container" style="display: none; margin-top: 20px; width: 100%;"></div>
                         </div>
 
                         <!-- Total Section -->
@@ -89,27 +94,6 @@
                                 Back to Menu
                             </a>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- PayPal Modal -->
-    <div class="modal fade" id="paypalModal" tabindex="-1">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-brown text-white">
-                    <h5 class="modal-title">PayPal Payment</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body text-center p-4">
-                    <div class="dummy-paypal-form">
-                        <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_111x69.jpg" alt="PayPal" class="mb-3">
-                        <p>This is a dummy PayPal payment page.</p>
-                        <button class="btn btn-primary paypal-btn w-100" onclick="processPaypalPayment()">
-                            Pay with PayPal
-                        </button>
                     </div>
                 </div>
             </div>

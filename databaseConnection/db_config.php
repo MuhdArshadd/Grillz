@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../Libraries/vendor/autoload.php'; // Loads composer packages
+require_once __DIR__ . '/../vendor/autoload.php'; // Loads composer packages
 
 use Dotenv\Dotenv;
 

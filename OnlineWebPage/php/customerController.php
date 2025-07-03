@@ -1,6 +1,6 @@
 <?php
 // Enable error logging
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 error_reporting(E_ALL);
 error_log("Script started");
 
@@ -94,40 +94,73 @@ function handleLogin() {
 function handleRegister() {
     global $pdo;
     
-    // Get POST data
-    $data = json_decode(file_get_contents('php://input'), true);
-    
     try {
-        // Check if email already exists
+        // Get POST data
+        $rawData = file_get_contents('php://input');
+        error_log("Raw registration data received: " . $rawData);
+        
+        $data = json_decode($rawData, true);
+        if (!$data) {
+            throw new Exception('Invalid JSON data received');
+        }
+        
+        error_log("Decoded registration data: " . print_r($data, true));
+
+        // Validate required fields with the correct field names
+        if (!isset($data['emailAddress']) || !isset($data['password']) || 
+            !isset($data['fullName']) || !isset($data['deliveryAddress']) || 
+            !isset($data['phoneNumber'])) {
+            throw new Exception('Missing required fields');
+        }
+
+        // Check if email already exists - use emailAddress instead of email
         $stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE emailaddress = :email");
-        $stmt->execute(['email' => $data['email']]);
+        $stmt->execute(['email' => $data['emailAddress']]);
         if ($stmt->fetchColumn() > 0) {
-            http_response_code(400);
             echo json_encode([
                 'status' => 'error',
-                'message' => 'Email already exists'
+                'message' => 'Email address already exists'
             ]);
             return;
         }
 
-        // Insert new user
-        $stmt = $pdo->prepare("INSERT INTO users (fullname, emailaddress, password, deliveryaddress, phonenumber) VALUES (:name, :email, :password)");
-        $stmt->execute([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => $hashedPassword
+        // Debug log before insert
+        error_log("Attempting to insert user with data: " . print_r([
+            'fullname' => $data['fullName'],
+            'emailaddress' => $data['emailAddress'],
+            'password' => $data['password'],
+            'deliveryaddress' => $data['deliveryAddress'],
+            'phonenumber' => $data['phoneNumber']
+        ], true));
+
+        // Insert new user with correct field mappings
+        $sql = "INSERT INTO users (fullname, emailaddress, password, deliveryaddress, phonenumber) 
+                VALUES (:fullname, :emailaddress, :password, :deliveryaddress, :phonenumber)";
+        
+        $stmt = $pdo->prepare($sql);
+        $result = $stmt->execute([
+            'fullname' => $data['fullName'],
+            'emailaddress' => $data['emailAddress'],
+            'password' => $data['password'],
+            'deliveryaddress' => $data['deliveryAddress'],
+            'phonenumber' => $data['phoneNumber']
         ]);
 
-        echo json_encode([
-            'status' => 'success',
-            'message' => 'Registration successful'
-        ]);
-    } catch (PDOException $e) {
-        error_log("Database error: " . $e->getMessage());
+        if ($result) {
+            echo json_encode([
+                'status' => 'success',
+                'message' => 'Registration successful'
+            ]);
+        } else {
+            throw new Exception('Failed to insert user');
+        }
+        
+    } catch (Exception $e) {
+        error_log("Registration error: " . $e->getMessage());
         http_response_code(500);
         echo json_encode([
             'status' => 'error',
-            'message' => 'Database error'
+            'message' => 'Registration failed: ' . $e->getMessage()
         ]);
     }
 }

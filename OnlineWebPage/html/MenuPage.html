@@ -9,7 +9,6 @@
   <link rel="stylesheet" href="../css/menupageStyle.css" />
   <script src="../js/user_auth.js"></script>
   <script src="../js/navigationManager.js"></script>
-  <script src="../js/cart.js"></script>
 </head>
 <body>
   <!-- Navbar -->
@@ -80,14 +79,6 @@
     </div>
   </div>
 
-  <!-- Cart Icon (only shown for logged-in users) -->
-  <a href="ViewOrder.html" class="cart-btn" id="cart-button" style="display: none;">
-    <div class="cart-icon">
-      <i class="bi bi-cart3"></i>
-      <span id="cart-counter" class="cart-counter">0</span>
-    </div>
-  </a>
-
   <!-- Login Prompt Modal -->
   <div class="modal fade" id="loginPromptModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -110,7 +101,29 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Define menuItems directly here to avoid multiple file loading issues
+    const menuItems = {
+        1: { name: "Cheese Lover Burger", price: 15.90, image: "../assets/food/cheese_lover_burger.png", description: "A heavenly combination of melted cheddar, mozzarella, and Swiss cheese with our signature beef patty and special sauce." },
+        2: { name: "Chicken Deluxe Burger", price: 13.90, image: "../assets/food/chicken_deluxe_burger.png", description: "Crispy breaded chicken fillet topped with fresh lettuce, tomatoes, and our signature mayo sauce." },
+        3: { name: "Grilled Beef Burger", price: 16.90, image: "../assets/food/grilled_beef_burger.png", description: "Premium beef patty grilled to perfection, topped with caramelized onions and our smoky BBQ sauce." },
+        4: { name: "Classic Burger", price: 12.90, image: "../assets/food/1.png", description: "Our timeless classic with 100% beef patty, fresh vegetables, cheese, and house-made special sauce." },
+        5: { name: "Double Beef Burger", price: 18.90, image: "../assets/food/2.png", description: "Double the satisfaction with two juicy beef patties, double cheese, and all the fresh toppings." },
+        6: { name: "Spicy Chicken Burger", price: 14.90, image: "../assets/food/3.png", description: "Spicy crispy chicken fillet with fresh lettuce, jalapeños, and our signature spicy mayo sauce." },
+        7: { name: "Fish Fillet Burger", price: 13.90, image: "../assets/food/4.png", description: "Crispy breaded fish fillet with fresh lettuce, cheese, and our special tartar sauce." },
+        8: { name: "Mushroom Swiss Burger", price: 16.90, image: "../assets/food/5.png", description: "Juicy beef patty topped with sautéed mushrooms, melted Swiss cheese, and garlic aioli." },
+        9: { name: "BBQ Bacon Burger", price: 17.90, image: "../assets/food/6.png", description: "Beef patty topped with crispy bacon, cheddar cheese, onion rings, and sweet BBQ sauce." }
+    };
+  </script>
   <script src="../js/menu.js"></script>
   <script src="../js/cart.js"></script>
+
+  <!-- Keep this one at the bottom of the body, before the scripts -->
+  <a href="ViewOrder.html" class="cart-btn" id="cart-button" style="display: none;">
+    <div class="cart-icon">
+        <i class="bi bi-cart3"></i>
+        <span id="cart-counter" class="cart-counter">0</span>
+    </div>
+  </a>
 </body>
 </html>

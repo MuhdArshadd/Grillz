@@ -199,55 +199,75 @@
     position: fixed;
     bottom: 30px;
     right: 30px;
-    z-index: 1000;
-    text-decoration: none;
-}
-
-.cart-icon {
-    background-color: var(--orange-burnt);
-    color: white;
+    background-color: var(--brown-dark);
+    color: var(--yellow-light);
     width: 60px;
     height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    position: relative;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
 }
 
-.cart-icon:hover {
-    transform: scale(1.1);
-    background-color: var(--brown-dark);
+.cart-btn:hover {
+    background-color: var(--orange-burnt);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+.cart-icon {
+    font-size: 24px;
+    position: relative;
 }
 
 .cart-counter {
     position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: var(--brown-dark);
+    top: -10px;
+    right: -10px;
+    background-color: var(--orange-burnt);
     color: white;
-    width: 25px;
-    height: 25px;
     border-radius: 50%;
+    width: 22px;
+    height: 22px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 12px;
     font-weight: bold;
 }
 
-/* Counter Animation */
+.counter-update {
+    animation: counterPop 0.3s ease-out;
+}
+
 @keyframes counterPop {
     0% { transform: scale(1); }
     50% { transform: scale(1.3); }
     100% { transform: scale(1); }
 }
 
-.counter-update {
-    animation: counterPop 0.3s ease;
+/* Notification Styles */
+.notification {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    background-color: var(--brown-dark);
+    color: var(--yellow-light);
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1001;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
 }
 
 /* Button Hover Effects */

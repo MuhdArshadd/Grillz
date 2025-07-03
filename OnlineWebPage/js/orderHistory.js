@@ -12,7 +12,7 @@ async function loadOrderHistory() {
     }
 
     try {
-        const response = await fetch(`http://localhost/Grillz-1/OnlineWebPage/php/customerController.php?endpoint=getOrderHistory&userId=${userData.userid}`);
+        const response = await fetch(`http://localhost/Grillz/OnlineWebPage/php/customerController.php?endpoint=getOrderHistory&userId=${userData.userid}`);
         const result = await response.json();
 
         if (result.success) {

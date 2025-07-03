@@ -71,15 +71,24 @@ function updateOrdersTable(orders) {
         const statusClass = getStatusClass(order.orderstatus);
         const orderTypeClass = order.order_type.toLowerCase().replace('-', '');
 
+        // Format the customer identification
+        let customerDisplay;
+        if (order.bool_isonlineorder) {
+            customerDisplay = order.customer_id || `User #${order.userid}`;
+        } else {
+            // For walk-in orders, use table number
+            customerDisplay = order.tableid ? `Table #${order.tableid}` : 'Unknown Table';
+        }
+
         const row = `
             <tr data-order-id="${order.orderid}">
                 <td>${index + 1}</td>
                 <td>#GRZ${String(order.orderid).padStart(6, '0')}</td>
-                <td>${order.customer_name}</td>
+                <td>${customerDisplay}</td>
                 <td><span class="order-type order-${orderTypeClass}">${order.order_type}</span></td>
                 <td><span class="status ${statusClass}">${order.orderstatus}</span></td>
-                <td>RM${parseFloat(order.totalbill).toFixed(2)}</td>
-                <td>${order.paymenttype}</td>
+                <td>RM${parseFloat(order.totalbill || 0).toFixed(2)}</td>
+                <td>${order.paymenttype || 'N/A'}</td>
                 <td>
                     <button class="btn btn-view" onclick="viewOrder('${order.orderid}', '${order.cartid}')">View</button>
                     ${getActionButton(order)}
@@ -117,26 +126,22 @@ function getActionButton(order) {
 }
 
 function viewOrder(orderId, cartId) {
-    // Find the order data from the stored data
     const order = $(`tr[data-order-id="${orderId}"]`).data('order');
     if (!order) return;
 
     // Update modal content with order details
     $('#modalOrderNumber').text(`#GRZ${String(orderId).padStart(6, '0')}`);
     $('#modalTimestamp').text(new Date(order.ordertimestamp).toLocaleString());
-    $('#modalCustomerName').text(order.customer_name);
+    
+    // Use the customer_id that's already formatted from the SQL query
+    $('#modalCustomerName').text(order.customer_id || 'Unknown');
+    
     $('#modalOrderType').text(order.order_type);
     $('#modalStatus').text(order.orderstatus);
-    $('#modalPaymentMethod').text(order.paymenttype);
+    $('#modalPaymentMethod').text(order.paymenttype || 'N/A');
     $('#modalAddress').text(order.deliveryaddress || 'N/A');
     $('#modalContact').text(order.phonenumber || 'N/A');
-    $('#modalTotal').text(`RM${parseFloat(order.totalbill).toFixed(2)}`);
-
-    // Clear previous items
-    $('#modalItemsList').empty().append('<tr><td colspan="4">Loading items...</td></tr>');
-
-    // Show the modal
-    $('#orderModal').show();
+    $('#modalTotal').text(`RM${parseFloat(order.totalbill || 0).toFixed(2)}`);
 
     // Fetch order items
     $.ajax({
@@ -144,7 +149,6 @@ function viewOrder(orderId, cartId) {
         method: 'GET',
         dataType: 'json',
         success: function(response) {
-            console.log('Items response:', response); // Debug log
             if (response && response.success) {
                 updateModalItems(response.items);
             } else {
@@ -156,12 +160,14 @@ function viewOrder(orderId, cartId) {
         },
         error: function(xhr, status, error) {
             console.error('AJAX error:', error);
-            console.error('Response:', xhr.responseText);
             $('#modalItemsList').empty().append(
                 '<tr><td colspan="4">Error loading items. Please try again.</td></tr>'
             );
         }
     });
+
+    // Show the modal
+    $('#orderModal').show();
 }
 
 function updateModalItems(items) {

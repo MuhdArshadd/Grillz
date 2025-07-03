@@ -30,6 +30,7 @@
 .status-timeline {
     position: relative;
     padding: 20px 0;
+    margin-bottom: 30px;
 }
 
 .status-step {
@@ -38,36 +39,55 @@
     margin-bottom: 30px;
     position: relative;
     opacity: 0.5;
+    transition: all 0.3s ease;
+}
+
+.status-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 48px;
+    width: 2px;
+    height: 30px;
+    background-color: #dee2e6;
+    transition: background-color 0.3s ease;
 }
 
 .status-step.active {
     opacity: 1;
 }
 
-.status-step:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 25px;
-    top: 40px;
-    width: 2px;
-    height: 30px;
+.status-step.active:not(:last-child)::after {
     background-color: #4B352A;
 }
 
+.status-step.cancelled .status-icon {
+    background-color: #dc3545;
+}
+
 .status-icon {
-    width: 50px;
-    height: 50px;
-    background-color: #4B352A;
+    width: 48px;
+    height: 48px;
+    background-color: #dee2e6;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 15px;
+    transition: all 0.3s ease;
+}
+
+.status-step.active .status-icon {
+    background-color: #4B352A;
+}
+
+.status-step.cancelled .status-icon {
+    background-color: #dc3545;
 }
 
 .status-icon i {
-    color: #fff;
-    font-size: 1.5rem;
+    color: white;
+    font-size: 1.25rem;
 }
 
 .status-text {
@@ -82,6 +102,25 @@
 
 .status-text small {
     color: #6c757d;
+    display: block;
+    margin-top: 2px;
+}
+
+/* Status-specific colors */
+.status-step.pending.active .status-icon {
+    background-color: #ffc107;
+}
+
+.status-step.processing.active .status-icon {
+    background-color: #CA7842;
+}
+
+.status-step.completed.active .status-icon {
+    background-color: #198754;
+}
+
+.status-step.cancelled.active .status-icon {
+    background-color: #dc3545;
 }
 
 /* Order items styling */

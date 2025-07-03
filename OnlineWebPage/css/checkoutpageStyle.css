@@ -216,3 +216,28 @@ input:focus {
 .modal-body p {
   margin-bottom: 0.5rem;
 }
+
+.alert {
+    animation: slideIn 0.5s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translate(-50%, -100%);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}
+
+.alert-success {
+    background-color: #4B352A;
+    color: #F0F2BD;
+    border: none;
+}
+
+.bi-check-circle-fill {
+    color: #B2CD9C;
+}

@@ -24,13 +24,36 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Load menu items as before
-    loadMenuItems();
+    // Show/hide cart button based on login status
+    const cartButton = document.getElementById('cart-button');
+    if (cartButton) {
+        const isLoggedIn = sessionStorage.getItem('userLoggedIn') === 'true';
+        cartButton.style.display = isLoggedIn ? 'flex' : 'none';
+    }
+    
+    // Initialize cart counter
+    updateCartCounter();
+    
+    // Render the menu items
+    renderMenuItems();
 });
 
 function renderMenuItems() {
-    const isLoggedIn = isUserLoggedIn();
+    const isLoggedIn = sessionStorage.getItem('userLoggedIn') === 'true';
     const menuContainer = document.getElementById('menu-container');
+    
+    if (!menuContainer) {
+        console.error('Menu container not found');
+        return;
+    }
+
+    if (typeof menuItems === 'undefined') {
+        console.error('Menu items data not found');
+        return;
+    }
+    
+    // Clear existing content
+    menuContainer.innerHTML = '';
     
     // Iterate through menu items and create cards
     Object.entries(menuItems).forEach(([id, item]) => {
@@ -77,4 +100,8 @@ function addToCart(item) {
     }
     
     // Rest of your cart handling code...
+}
+
+function updateCartCounter() {
+    // Implementation of updateCartCounter function
 } 

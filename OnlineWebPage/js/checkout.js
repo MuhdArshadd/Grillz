@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Sending order data:', orderData);
 
     try {
-        const response = await fetch('http://localhost/Grillz-1/OnlineWebPage/php/paymentController.php?endpoint=processPayPalPayment', {
+        const response = await fetch('http://localhost/Grillz/OnlineWebPage/php/paymentController.php?endpoint=processPayPalPayment', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -134,10 +134,26 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Payment result:', result);
         
         if (result.success) {
-            localStorage.removeItem('cart');
-            sessionStorage.removeItem('checkoutData');
-            alert('Payment processed successfully! Your order has been placed.');
-            window.location.href = 'UserOrderHistoryPage.html';
+            // Send order confirmation email
+            sendOrderConfirmationEmail(result.orderId)
+                .then(() => {
+                    // Clear cart and checkout data
+                    localStorage.removeItem('cart');
+                    sessionStorage.removeItem('checkoutData');
+                    
+                    // Show success message
+                    showSuccessMessage('Order placed successfully! Check your email for confirmation.');
+                    
+                    // Redirect to order history after a delay
+                    setTimeout(() => {
+                        window.location.href = 'UserOrderHistoryPage.html';
+                    }, 3000);
+                })
+                .catch(error => {
+                    console.error('Error in payment success handler:', error);
+                    // Still redirect even if email fails
+                    window.location.href = 'UserOrderHistoryPage.html';
+                });
         } else {
             throw new Error(result.message || 'Failed to process payment');
         }
@@ -180,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     
         try {
-            const response = await fetch('http://localhost/Grillz-1/OnlineWebPage/php/customerController.php?endpoint=placeOrder', {
+            const response = await fetch('http://localhost/Grillz/OnlineWebPage/php/customerController.php?endpoint=placeOrder', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -191,12 +207,26 @@ document.addEventListener('DOMContentLoaded', function() {
             const result = await response.json();
             
             if (result.status === 'success') {
-                // Clear cart and checkout data
-                localStorage.removeItem('cart');
-                sessionStorage.removeItem('checkoutData');
-                
-                alert('Order placed successfully! Please prepare cash for delivery.');
-                window.location.href = 'UserOrderHistoryPage.html';
+                // Send order confirmation email
+                sendOrderConfirmationEmail(result.orderId)
+                    .then(() => {
+                        // Clear cart and checkout data
+                        localStorage.removeItem('cart');
+                        sessionStorage.removeItem('checkoutData');
+                        
+                        // Show success message
+                        showSuccessMessage('Order placed successfully! Check your email for confirmation.');
+                        
+                        // Redirect to order history after a delay
+                        setTimeout(() => {
+                            window.location.href = 'UserOrderHistoryPage.html';
+                        }, 3000);
+                    })
+                    .catch(error => {
+                        console.error('Error in payment success handler:', error);
+                        // Still redirect even if email fails
+                        window.location.href = 'UserOrderHistoryPage.html';
+                    });
             } else {
                 alert(result.message || 'Failed to place order');
             }
@@ -217,4 +247,51 @@ document.addEventListener('DOMContentLoaded', function() {
           // Redirect back to menu
           window.location.href = 'MenuPage.html';
       }
+  }
+
+  // Add this function to send the order confirmation email
+  async function sendOrderConfirmationEmail(orderId) {
+    try {
+        const response = await fetch('../php/sendOrderEmail.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ orderId: orderId })
+        });
+
+        const data = await response.json();
+        
+        if (!data.success) {
+            console.error('Failed to send order confirmation email:', data.message);
+        }
+    } catch (error) {
+        console.error('Error sending order confirmation email:', error);
+    }
+  }
+
+  // Update your existing payment success handler
+  function handlePaymentSuccess(orderId) {
+    // Existing success handling code...
+
+    // Send order confirmation email
+    sendOrderConfirmationEmail(orderId)
+        .then(() => {
+            // Clear cart and checkout data
+            localStorage.removeItem('cart');
+            sessionStorage.removeItem('checkoutData');
+            
+            // Show success message
+            showSuccessMessage('Order placed successfully! Check your email for confirmation.');
+            
+            // Redirect to order history after a delay
+            setTimeout(() => {
+                window.location.href = 'UserOrderHistoryPage.html';
+            }, 3000);
+        })
+        .catch(error => {
+            console.error('Error in payment success handler:', error);
+            // Still redirect even if email fails
+            window.location.href = 'UserOrderHistoryPage.html';
+        });
   }

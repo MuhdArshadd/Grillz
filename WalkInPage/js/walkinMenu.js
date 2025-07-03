@@ -137,6 +137,21 @@ function goToCheckout() {
         return;
     }
     
+    // Calculate totals before redirecting
+    const cart = JSON.parse(localStorage.getItem(`walkInCart_${tableId}`)) || [];
+    const subtotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const tax = subtotal * 0.06;
+    const total = subtotal + tax;
+    
+    // Store the calculated totals in localStorage
+    const orderTotals = {
+        subtotal: subtotal,
+        tax: tax,
+        total: total,
+        calculatedAt: new Date().toISOString() // Add timestamp for validation
+    };
+    localStorage.setItem(`walkInTotals_${tableId}`, JSON.stringify(orderTotals));
+    
     // Navigate to checkout with table ID
     window.location.href = `WalkInCheckout.html?table=${tableId}`;
 }
